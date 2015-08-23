@@ -1,49 +1,61 @@
+'use strict';
+
+var should = require('should');
+
 var Ritetag = require('./index');
 
+var rt = new Ritetag();
 
-var options = {
-	clientId: 'YOUR_CONSUMER_KEY',
-	clientSecret: 'YOUR_CONSUMER_SECRET',
-	oauthToken: 'YOUR_OAUTH_TOKEN',
-	oauthSecret: 'YOUR_OAUTH_SECRET',
-	debug: true
-};
+describe('Ritetag unit tests', function() {
+	it('hashtagDirectory', function(done) {
+		rt.hashtagDirectory('jobs', function(err, res){
+			should.not.exist(err);
+			res.should.have.property('data');
+			res.data.should.be.instanceof(Array);
+			done();
+		});
+	});
 
-var rt = new Ritetag(options);
+	it('trendingHashtag', function(done) {
+		rt.trendingHashtag({green: false, onlylatin: true}, function(err, res){
+			should.not.exist(err);
+			res.should.have.property('tags');
+			res.tags.should.be.instanceof(Array);
+			done();
+		});
+	});
 
+	/*it('hashtagsForURL', function(done) {
+		rt.hashtagsForURL('http://twitter.com', function(err, res){
+			should.not.exist(err);
+			res.should.be.instanceof(Array);
+			done();
+		});
+	});*/
 
-rt.hashtagDirectory('jobs', function(err, res){
-	if(err) return console.error(err);
+	it('influencersForHashtag', function(done) {
+		rt.influencersForHashtag('socialmedia', function(err, res){
+			should.not.exist(err);
+			res.should.have.property('influencers');
+			res.influencers.should.be.instanceof(Array);
+			done();
+		});
+	});
 
-	console.log(res);
-});
+	it('historicalData', function(done) {
+		rt.historicalData('job', function(err, res){
+			should.not.exist(err);
+			res.should.have.property('data');
+			res.data.should.be.instanceof(Array);
+			done();
+		});
+	});
 
-rt.trendingHashtag({green: false, onlylatin: true}, function(err, res){
-	if(err) return console.error(err);
-
-	console.log(res);
-});
-
-rt.hashtagsForURL('http://twitter.com', function(err, res){
-	if(err) return console.error(err);
-
-	console.log(res);
-});
-
-rt.influencersForHashtag('socialmedia', function(err, res){
-	if(err) return console.error(err);
-
-	console.log(res);
-});
-
-rt.historicalData('job', function(err, res){
-	if(err) return console.error(err);
-
-	console.log(res);
-});
-
-rt.tweetGrader({tweet: 'test', photo: 'false', networks: 'TWITTER'}, function(err, res){
-	if(err) return console.error(err);
-
-	console.log(res);
+	it('tweetGrader', function(done) {
+		rt.tweetGrader({tweet: 'test', photo: 'false', networks: 'TWITTER'}, function(err, res){
+			should.not.exist(err);
+			res.should.have.property('twitter').be.instanceof(Object);
+			done();
+		});
+	});
 });

@@ -40,8 +40,8 @@ Ritetag.prototype._request = function(url, callback){
 
 	self.oauth.get(
 		url,
-		self.oauthToken, //test user token
-		self.oauthSecret, //test user secret 
+		self.oauthToken, 
+		self.oauthSecret,
 		function (error, data, res) {
 			self.__debug('GET - ' + url + ' - ' + (Date.now() - t) + ' ms');
 			if(error) return callback(error);	
@@ -58,7 +58,7 @@ Ritetag.prototype._request = function(url, callback){
 /**
  * Call Hashtag Directory API Action 
  *
- * @param query 	String 			query hastag
+ * @param query 	String 			query hashtag
  * @param options 	Object 			option object
  * @param callback 	function 		callback function called with two parameters err, result
  */

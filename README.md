@@ -77,14 +77,16 @@ rt.trendingHashtag({green: false, onlylatin: true}, function(error, results){
 });
 ```
 ### hashtagsForURL(url, callback)
-```javascript
+The api call doesn't work.
+<!---
+ ```javascript
 rt.hashtagsForURL('http://twitter.com', function(error, results){
 	if(error) return console.error(error);
 
 	...
 });
 ```
-
+-->
 ### influencersForHashtag(hashtag, callback)
 ```javascript
 rt.influencersForHashtag('socialmedia', function(error, results){

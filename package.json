@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "keywords": [
     "ritetag",
-    "api",
+    "api"
   ],
   "bugs": {
     "url": "https://github.com/DigitalRockers/ritetag/issues"
@@ -20,7 +20,10 @@
   },
   "dependencies": {
     "eyes": "~0.1.8",
-    "oauth": "~0.9.13",
+    "oauth": "~0.9.13"
+  },
+  "devDependencies": {
+    "should": "7.0.4"
   },
   "main": "./index.js"
 }
