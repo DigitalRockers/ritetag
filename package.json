@@ -25,5 +25,8 @@
   "devDependencies": {
     "should": "7.0.4"
   },
-  "main": "./index.js"
+  "main": "./index.js",
+  "scripts": {
+    "test": "mocha test.js"
+  }
 }
