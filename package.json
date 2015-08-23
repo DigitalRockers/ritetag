@@ -1,0 +1,26 @@
+{
+  "name": "ritetag",
+  "description": "Ritetag api nodejs module",
+  "version": "0.1.0",
+  "keywords": [
+    "ritetag",
+    "api",
+  ],
+  "bugs": {
+    "url": "https://github.com/DigitalRockers/ritetag/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Gianluca Pengo",
+    "url": "https://github.com/gian788/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DigitalRockers/ritetag"
+  },
+  "dependencies": {
+    "eyes": "~0.1.8",
+    "oauth": "~0.9.13",
+  },
+  "main": "./index.js"
+}
