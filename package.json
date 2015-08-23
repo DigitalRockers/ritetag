@@ -17,19 +17,20 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/DigitalRockers/ritetag"
+  },  
+  "engines": {
+    "node": ">=0.10"
   },
   "dependencies": {
     "eyes": "~0.1.8",
     "oauth": "~0.9.13"
   },
   "devDependencies": {
-    "should": "7.0.4"
+    "mocha": "*",
+    "should": "*"
   },
   "main": "./index.js",
   "scripts": {
     "test": "mocha test.js"
-  },
-  "engines": {
-    "node": ">=0.10"
   },
 }
