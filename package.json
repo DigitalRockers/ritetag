@@ -28,5 +28,8 @@
   "main": "./index.js",
   "scripts": {
     "test": "mocha test.js"
-  }
+  },
+  "engines": {
+    "node": ">=0.10"
+  },
 }
