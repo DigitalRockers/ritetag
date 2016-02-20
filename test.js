@@ -16,15 +16,6 @@ describe('Ritetag legacy v2.0 unit tests', function() {
 		});
 	});
 
-	it('trendingHashtag', function(done) {
-		rt.trendingHashtag({green: false, onlylatin: true}, function(err, res){
-			should.not.exist(err);
-			res.should.have.property('tags');
-			res.tags.should.be.instanceof(Array);
-			done();
-		});
-	});
-
 	/**it('hashtagsForURL', function(done) {
 		rt.hashtagsForURL('http://twitter.com', function(err, res){
 			should.not.exist(err);
@@ -80,7 +71,7 @@ describe('Ritetag Data unit tests', function() {
 		});
 	});
 
-	it('trandingHashtags', function(done) {
+	it('trendingHashtags', function(done) {
 		rt.trendingHashtag({green: false, onlylatin: true}, function(err, res){
 			should.not.exist(err);
 			res.should.have.property('tags');
@@ -109,7 +100,7 @@ describe('Ritetag Data unit tests', function() {
 });
 
 describe('Ritetag AI unit tests', function() {
-	it('socialMediaCoach', function(done) {
+	/*it('socialMediaCoach', function(done) {
 		rt.socialMediaCoach({tweet: '700823383961792512', image: 0, networks: 'TWITTER'}, function(err, res){
 			should.not.exist(err);
 			res.should.have.property('tips');
@@ -125,5 +116,5 @@ describe('Ritetag AI unit tests', function() {
 			res.tags.should.be.instanceof(Array);
 			done();
 		});
-	});
+	});*/
 });

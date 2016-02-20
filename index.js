@@ -161,7 +161,7 @@ Ritetag.prototype.tweetGrader = function(query, options, callback){
  * @param hashtag 	String 			query hashtag
  * @param callback 	function 		callback function called with two parameters err, result
  */
-Ritetag.prototype.hashtagStats = function(hashtag, callback){
+Ritetag.prototype.hashtagStats = function(hashtag, options, callback){
 	if(!callback){
 		callback = options;
 		options = {};
@@ -176,7 +176,7 @@ Ritetag.prototype.hashtagStats = function(hashtag, callback){
  * @param query 		Object 			query hashtag
  * @param callback 	function 		callback function called with two parameters err, result
  */
-Ritetag.prototype.trandingHashtags = function(query, callback){
+Ritetag.prototype.trendingHashtags = function(query, options, callback){
 	if(!callback){
 		callback = options;
 		options = {};
@@ -192,7 +192,7 @@ Ritetag.prototype.trandingHashtags = function(query, callback){
  * @param hashtag 	String 			query hashtag
  * @param callback 	function 		callback function called with two parameters err, result
  */
-Ritetag.prototype.influencer = function(hashtag, callback){
+Ritetag.prototype.influencer = function(hashtag, options, callback){
 	if(!callback){
 		callback = options;
 		options = {};
@@ -207,7 +207,7 @@ Ritetag.prototype.influencer = function(hashtag, callback){
  * @param hashtag 	String 			query hashtag
  * @param callback 	function 		callback function called with two parameters err, result
  */
-Ritetag.prototype.historicalData = function(hashtag, callback){
+Ritetag.prototype.historicalData = function(hashtag, options, callback){
 	if(!callback){
 		callback = options;
 		options = {};

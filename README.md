@@ -55,7 +55,63 @@ var rt = new Ritetag({
 });
 ```
 
-### hashtagDirectory(query, callback)
+### hashtagStats(hashtag, callback)
+Returns an array of up to 10 hashtags most frequently used in tweets containing your query + returns stats on 'query hashtag' (hashtag created by adding # sign to your query).
+
+```javascript
+rt.hashtagStats('jobs', function(error, results){
+	...
+});
+```
+
+### trendingHashtags(query, callback)
+Returns an array of up to 20 hashtags trending in the last 24 hours (hourly floating averages)
+
+```javascript
+rt.trendingHashtags({green: 0, latin: 0}), function(error, results){
+	...
+});
+```
+
+### influencer(hashtag, callback)
+Returns an array of up to 10 influential Twitter accounts using a specific hashtag
+
+```javascript
+rt.influencer('jobs'), function(error, results){
+	...
+});
+```
+
+### historicalData(hashtag, callback)
+Returns daily stats of a hashtag for the last 30 days (tweets, retweets, images, links, mentions etc.)
+
+```javascript
+rt.historicalData('jobs'), function(error, results){
+	...
+});
+```
+
+### socialMediaCoach(query, callback)
+Analyzes content of a social media post and returns a tailored array of textual tips on how to improve the reach and engagement of that particular post
+
+```javascript
+rt.socialMediaCoach({tweet: 'test', image: 0, networks: 'TWITTER'}), function(error, results){
+	...
+});
+```
+
+### autoEnhancePost(query, callback)
+Analyzes content of a social media post and returns arrays of suggested hashtags, images and final version of enhanced post
+
+```javascript
+rt.autoEnhancePost({tweet: 'test', image: 0}), function(error, results){
+	...
+});
+```
+
+### API v 2.0
+
+#### hashtagDirectory(query, callback)
 Returns an array of up to 10 hashtags most frequently used in tweets containing your query + returns stats on 'query hashtag' (hashtag created by adding # sign to your query).
 
 ```javascript
@@ -66,7 +122,7 @@ rt.hashtagDirectory('jobs', function(error, results){
 });
 ```
 
-### trendingHashtag(query, callback)
+#### trendingHashtag(query, callback)
 Where `query` is an object with `green` (boolean, optional, default: false) and `onlylatin` (boolean, optional, default: false) properties.
 
 ```javascript
@@ -76,7 +132,7 @@ rt.trendingHashtag({green: false, onlylatin: true}, function(error, results){
 	...
 });
 ```
-### hashtagsForURL(url, callback)
+#### hashtagsForURL(url, callback)
 The api call doesn't work.
 <!---
  ```javascript
@@ -87,7 +143,7 @@ rt.hashtagsForURL('http://twitter.com', function(error, results){
 });
 ```
 -->
-### influencersForHashtag(hashtag, callback)
+#### influencersForHashtag(hashtag, callback)
 ```javascript
 rt.influencersForHashtag('socialmedia', function(error, results){
 	if(error) return console.error(error);
@@ -96,7 +152,7 @@ rt.influencersForHashtag('socialmedia', function(error, results){
 });
 ```
 
-### historicalData(hashtag, callback)
+#### historicalData(hashtag, callback)
 ```javascript
 rt.historicalData('job', function(error, results){
 	if(error) return console.error(error);
@@ -105,7 +161,7 @@ rt.historicalData('job', function(error, results){
 });
 ```
 
-### tweetGrader(query, callback)
+#### tweetGrader(query, callback)
 Where `query` is an object with `tweet` (string, required), `photo` (boolean, required) and `networks` (string, required, [TWITTER,FACEBOOK]) properties.
 
 ```javascript
@@ -115,27 +171,3 @@ rt.tweetGrader({tweet: 'test', photo: 'false', networks: 'TWITTER'}, function(er
 	...
 });
 ```
-
-LICENSE
----
-The MIT License (MIT)
-
-Copyright (c) 2015 Digital Rockers s.r.l.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
