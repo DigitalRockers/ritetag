@@ -74,7 +74,7 @@ describe('Ritetag Data unit tests', function() {
 	it('hashtagStats', function(done) {
 		rt.hashtagDirectory('jobs', function(err, res){
 			should.not.exist(err);
-			res.should.have.property('stats');
+			res.should.have.property('data');
 			res.data.should.be.instanceof(Array);
 			done();
 		});
