@@ -6,7 +6,7 @@ var Ritetag = require('./index');
 
 var rt = new Ritetag();
 
-describe('Ritetag Data unit tests', function() {
+describe('Ritetag legacy v2.0 unit tests', function() {
 	it('hashtagDirectory', function(done) {
 		rt.hashtagDirectory('jobs', function(err, res){
 			should.not.exist(err);
@@ -25,7 +25,7 @@ describe('Ritetag Data unit tests', function() {
 		});
 	});
 
-	/*it('hashtagsForURL', function(done) {
+	/**it('hashtagsForURL', function(done) {
 		rt.hashtagsForURL('http://twitter.com', function(err, res){
 			should.not.exist(err);
 			res.should.be.instanceof(Array);
@@ -58,9 +58,55 @@ describe('Ritetag Data unit tests', function() {
 			done();
 		});
 	});*/
+
+
+	it('historicalData', function(done) {
+		rt.historicalData('job', function(err, res){
+			should.not.exist(err);
+			res.should.have.property('data');
+			res.data.should.be.instanceof(Array);
+			done();
+		});
+	});
 });
 
+describe('Ritetag Data unit tests', function() {
+	it('hashtagStats', function(done) {
+		rt.hashtagDirectory('jobs', function(err, res){
+			should.not.exist(err);
+			res.should.have.property('stats');
+			res.data.should.be.instanceof(Array);
+			done();
+		});
+	});
 
+	it('trandingHashtags', function(done) {
+		rt.trendingHashtag({green: false, onlylatin: true}, function(err, res){
+			should.not.exist(err);
+			res.should.have.property('tags');
+			res.tags.should.be.instanceof(Array);
+			done();
+		});
+	});
+
+	it('influencer', function(done) {
+		rt.influencersForHashtag('socialmedia', function(err, res){
+			should.not.exist(err);
+			res.should.have.property('influencers');
+			res.influencers.should.be.instanceof(Array);
+			done();
+		});
+	});
+
+	it('historicalData', function(done) {
+		rt.historicalData('job', function(err, res){
+			should.not.exist(err);
+			res.should.have.property('data');
+			res.data.should.be.instanceof(Array);
+			done();
+		});
+	});
+});
 
 describe('Ritetag AI unit tests', function() {
 	it('socialMediaCoach', function(done) {
