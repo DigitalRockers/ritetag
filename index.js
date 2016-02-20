@@ -5,6 +5,7 @@ var OAuth = require('oauth'),
 	qs = require('querystring');
 
 var apiUrl = 'http://ritetag.com';
+var mockupUrl = 'https://private-anon-5491825cb-ritetag.apiary-mock.com';
 
 var Ritetag = function(options){
 	if(!options)
@@ -14,6 +15,8 @@ var Ritetag = function(options){
 	this.clientSecret = options.clientSecret || process.env.RitetagClientSecret;
 	this.oauthToken = options.oauthToken || process.env.RitetagOauthToken;
 	this.oauthSecret = options.oauthSecret || process.env.RitetagOauthSecret;
+
+	this.useMokupServer = options.useMokupServer;
 
 	this.oauth = new OAuth.OAuth(
 		null,
@@ -37,12 +40,15 @@ Ritetag.prototype._request = function(url, callback){
 	var self = this,
 		t = Date.now();
 
+	var reqUrl = self.useMokupServer ? mockupUrl : apiUrl;
+	reqUrl += url;
+
 	self.oauth.get(
-		url,
+		reqUrl,
 		self.oauthToken,
 		self.oauthSecret,
 		function (error, data, res) {
-			self.__debug('GET - ' + url + ' - ' + (Date.now() - t) + ' ms');
+			self.__debug('GET - ' + reqUrl + ' - ' + (Date.now() - t) + ' ms');
 			if(error) return callback(error);
 
 			var json = JSON.parse(data);
@@ -53,7 +59,8 @@ Ritetag.prototype._request = function(url, callback){
 		});
 };
 
-Ritetag.prototype.data = require('./lib/data');
+
+
 
 /**
  * Call Hashtag Directory API Action
@@ -68,7 +75,7 @@ Ritetag.prototype.hashtagDirectory = function(query, options, callback){
 		options = {};
 	}
 
-	this._request(apiUrl + '/api/v2/ai/twitter/' + query + '/', callback);
+	this._request('/api/v2/ai/twitter/' + query + '/', callback);
 };
 
 
@@ -85,7 +92,7 @@ Ritetag.prototype.trendingHashtag = function(query, options, callback){
 		options = {};
 	}
 
-	this._request(apiUrl + '/api/v2/trending-hashtags/?' + qs.stringify(query), callback);
+	this._request('/api/v2/trending-hashtags/?' + qs.stringify(query), callback);
 };
 
 
@@ -102,7 +109,7 @@ Ritetag.prototype.hashtagsForURL = function(url, options, callback){
 		options = {};
 	}
 
-	this._request(apiUrl + '/hashtagsforurl/?' + qs.stringify({url: url}), callback);
+	this._request('/hashtagsforurl/?' + qs.stringify({url: url}), callback);
 };
 
 
@@ -119,7 +126,7 @@ Ritetag.prototype.influencersForHashtag = function(hashtag, options, callback){
 		options = {};
 	}
 
-	this._request(apiUrl + '/api/v2/influencers-for-hashtag/' + hashtag, callback);
+	this._request('/api/v2/influencers-for-hashtag/' + hashtag, callback);
 };
 
 
@@ -136,7 +143,7 @@ Ritetag.prototype.historicalData = function(hashtag, options, callback){
 		options = {};
 	}
 
-	this._request(apiUrl + '/api/v2/historical-data/' + hashtag, callback);
+	this._request('/api/v2/historical-data/' + hashtag, callback);
 };
 
 
@@ -153,8 +160,45 @@ Ritetag.prototype.tweetGrader = function(query, options, callback){
 		options = {};
 	}
 
-	this._request(apiUrl + '/api/v2.1/reports/grader/?' + qs.stringify(query), callback);
+	this._request('/api/v2.1/reports/grader/?' + qs.stringify(query), callback);
 };
+
+
+/**
+ * Call Social Media Coach API Action
+ *
+ * @param query 	String 			query hashtag
+ * @param options 	Object 			option object
+ * @param callback 	function 		callback function called with two parameters err, result
+ */
+Ritetag.prototype.socialMediaCoach = function(query, options, callback){
+	if(!callback){
+		callback = options;
+		options = {};
+	}
+
+	this._request('/api/v2.2/ai/coach/' + query + '/', callback);
+};
+
+
+/**
+ * Call Auto Enhance post API Action
+ *
+ * @param query 	Object 			{green: Boolean, onlylatin: Boolean}
+ * @param options 	Object 			option object
+ * @param callback 	function 		callback function called with two parameters err, result
+ */
+Ritetag.prototype.autoEnhancePost = function(query, options, callback){
+	if(!callback){
+		callback = options;
+		options = {};
+	}
+
+	this._request('/api/v2.2/autoenhance/?' + qs.stringify(query), callback);
+};
+
+
+
 
 
 
