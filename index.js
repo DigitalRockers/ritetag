@@ -6,15 +6,14 @@ var OAuth = require('oauth'),
 
 var apiUrl = 'http://ritetag.com';
 
-
 var Ritetag = function(options){
 	if(!options)
 		options = {};
 
-	this.clientId = options.clientId || process.ENV.RitetagClientId;
-	this.clientSecret = options.clientSecret || process.ENV.RitetagClientSecret;
-	this.oauthToken = options.oauthToken || process.ENV.RitetagOauthToken;
-	this.oauthSecret = options.oauthSecret || process.ENV.RitetagOauthSecret;
+	this.clientId = options.clientId || process.env.RitetagClientId;
+	this.clientSecret = options.clientSecret || process.env.RitetagClientSecret;
+	this.oauthToken = options.oauthToken || process.env.RitetagOauthToken;
+	this.oauthSecret = options.oauthSecret || process.env.RitetagOauthSecret;
 
 	this.oauth = new OAuth.OAuth(
 		null,
