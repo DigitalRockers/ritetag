@@ -5,16 +5,18 @@ var OAuth = require('oauth'),
 	qs = require('querystring');
 
 var apiUrl = 'http://ritetag.com';
-
+var mockupUrl = 'https://private-anon-5491825cb-ritetag.apiary-mock.com';
 
 var Ritetag = function(options){
 	if(!options)
 		options = {};
 
-	this.clientId = options.clientId || process.ENV.RitetagClientId;
-	this.clientSecret = options.clientSecret || process.ENV.RitetagClientSecret;
-	this.oauthToken = options.oauthToken || process.ENV.RitetagOauthToken;
-	this.oauthSecret = options.oauthSecret || process.ENV.RitetagOauthSecret;
+	this.clientId = options.clientId || process.env.RitetagClientId;
+	this.clientSecret = options.clientSecret || process.env.RitetagClientSecret;
+	this.oauthToken = options.oauthToken || process.env.RitetagOauthToken;
+	this.oauthSecret = options.oauthSecret || process.env.RitetagOauthSecret;
+
+	this.useMokupServer = options.useMokupServer;
 
 	this.oauth = new OAuth.OAuth(
 		null,
@@ -38,13 +40,16 @@ Ritetag.prototype._request = function(url, callback){
 	var self = this,
 		t = Date.now();
 
+	var reqUrl = self.useMokupServer ? mockupUrl : apiUrl;
+	reqUrl += url;
+
 	self.oauth.get(
-		url,
-		self.oauthToken, 
+		reqUrl,
+		self.oauthToken,
 		self.oauthSecret,
 		function (error, data, res) {
-			self.__debug('GET - ' + url + ' - ' + (Date.now() - t) + ' ms');
-			if(error) return callback(error);	
+			self.__debug('GET - ' + reqUrl + ' - ' + (Date.now() - t) + ' ms');
+			if(error) return callback(error);
 
 			var json = JSON.parse(data);
 
@@ -55,8 +60,11 @@ Ritetag.prototype._request = function(url, callback){
 };
 
 
+
+
 /**
- * Call Hashtag Directory API Action 
+ * v 2.0
+ * Call Hashtag Directory API Action
  *
  * @param query 	String 			query hashtag
  * @param options 	Object 			option object
@@ -67,13 +75,14 @@ Ritetag.prototype.hashtagDirectory = function(query, options, callback){
 		callback = options;
 		options = {};
 	}
-	
-	this._request(apiUrl + '/api/v2/ai/twitter/' + query + '/', callback);
+
+	this._request('/api/v2/ai/twitter/' + query + '/', callback);
 };
 
 
 /**
- * Call Trending Hashtag API Action 
+ * v 2.0
+ * Call Trending Hashtag API Action
  *
  * @param query 	Object 			{green: Boolean, onlylatin: Boolean}
  * @param options 	Object 			option object
@@ -84,13 +93,14 @@ Ritetag.prototype.trendingHashtag = function(query, options, callback){
 		callback = options;
 		options = {};
 	}
-	
-	this._request(apiUrl + '/api/v2/trending-hashtags/?' + qs.stringify(query), callback);
+
+	this._request('/api/v2/trending-hashtags/?' + qs.stringify(query), callback);
 };
 
 
 /**
- * Call Hashtags for URL API Action 
+ * v 2.0
+ * Call Hashtags for URL API Action
  *
  * @param url 		String 			url
  * @param options 	Object 			option object
@@ -101,13 +111,14 @@ Ritetag.prototype.hashtagsForURL = function(url, options, callback){
 		callback = options;
 		options = {};
 	}
-	
-	this._request(apiUrl + '/hashtagsforurl/?' + qs.stringify({url: url}), callback);
+
+	this._request('/hashtagsforurl/?' + qs.stringify({url: url}), callback);
 };
 
 
 /**
- * Call Influencers for Hashtag API Action 
+ * v 2.0
+ * Call Influencers for Hashtag API Action
  *
  * @param hashtag 	String 			hashtag
  * @param options 	Object 			option object
@@ -118,30 +129,14 @@ Ritetag.prototype.influencersForHashtag = function(hashtag, options, callback){
 		callback = options;
 		options = {};
 	}
-	
-	this._request(apiUrl + '/api/v2/influencers-for-hashtag/' + hashtag, callback);
+
+	this._request('/api/v2/influencers-for-hashtag/' + hashtag, callback);
 };
 
 
 /**
- * Call Historical data API Action 
- *
- * @param hashtag 	String 			hashtag
- * @param options 	Object 			option object
- * @param callback 	function 		callback function called with two parameters err, result
- */
-Ritetag.prototype.historicalData = function(hashtag, options, callback){
-	if(!callback){
-		callback = options;
-		options = {};
-	}
-	
-	this._request(apiUrl + '/api/v2/historical-data/' + hashtag, callback);
-};
-
-
-/**
- * Call Tweet grader API Action 
+ * v 2.0
+ * Call Tweet grader API Action
  *
  * @param query 	Object 			{tweet: String, photo: Boolean, networks: String[TWITTER,FACEBOOK]}
  * @param options 	Object 			option object
@@ -152,9 +147,110 @@ Ritetag.prototype.tweetGrader = function(query, options, callback){
 		callback = options;
 		options = {};
 	}
-	
-	this._request(apiUrl + '/api/v2.1/reports/grader/?' + qs.stringify(query), callback);
+
+	this._request('/api/v2.1/reports/grader/?' + qs.stringify(query), callback);
 };
+
+
+
+/**
+ * Call Hashtag Stats API Action
+ *
+ * @param hashtag 	String 			query hashtag
+ * @param callback 	function 		callback function called with two parameters err, result
+ */
+Ritetag.prototype.hashtagStats = function(hashtag, callback){
+	if(!callback){
+		callback = options;
+		options = {};
+	}
+
+	this._request('/api/v2.2/data/stats/' + hashtag + '/', callback);
+};
+
+/**
+ * Call Trending Hashtag API Action
+ *
+ * @param query 		Object 			query hashtag
+ * @param callback 	function 		callback function called with two parameters err, result
+ */
+Ritetag.prototype.trandingHashtags = function(query, callback){
+	if(!callback){
+		callback = options;
+		options = {};
+	}
+
+	this._request('/api/v2.2/data/trending/' + qs.stringify(query) + '/', callback);
+};
+
+
+/**
+ * Call Influencer API Action
+ *
+ * @param hashtag 	String 			query hashtag
+ * @param callback 	function 		callback function called with two parameters err, result
+ */
+Ritetag.prototype.influencer = function(hashtag, callback){
+	if(!callback){
+		callback = options;
+		options = {};
+	}
+
+	this._request('/api/v2.2/data/influencer/' + hashtag + '/', callback);
+};
+
+/**
+ * Call Historucal Data API Action
+ *
+ * @param hashtag 	String 			query hashtag
+ * @param callback 	function 		callback function called with two parameters err, result
+ */
+Ritetag.prototype.historicalData = function(hashtag, callback){
+	if(!callback){
+		callback = options;
+		options = {};
+	}
+
+	this._request('/api/v2.2/data/history/' + hashtag + '/', callback);
+};
+
+
+
+/**
+ * Call Social Media Coach API Action
+ *
+ * @param query 	String 			query hashtag
+ * @param options 	Object 			option object
+ * @param callback 	function 		callback function called with two parameters err, result
+ */
+Ritetag.prototype.socialMediaCoach = function(query, options, callback){
+	if(!callback){
+		callback = options;
+		options = {};
+	}
+
+	this._request('/api/v2.2/ai/coach/' + qs.stringify(query) + '/', callback);
+};
+
+
+/**
+ * Call Auto Enhance post API Action
+ *
+ * @param query 	Object 			{green: Boolean, onlylatin: Boolean}
+ * @param options 	Object 			option object
+ * @param callback 	function 		callback function called with two parameters err, result
+ */
+Ritetag.prototype.autoEnhancePost = function(query, options, callback){
+	if(!callback){
+		callback = options;
+		options = {};
+	}
+
+	this._request('/api/v2.2/ai/autoenhance/?' + qs.stringify(query), callback);
+};
+
+
+
 
 
 
