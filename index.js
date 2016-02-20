@@ -17,6 +17,8 @@ var Ritetag = function(options){
 	this.oauthSecret = options.oauthSecret || process.env.RitetagOauthSecret;
 
 	this.useMokupServer = options.useMokupServer;
+=======
+>>>>>>> origin/master
 
 	this.oauth = new OAuth.OAuth(
 		null,
