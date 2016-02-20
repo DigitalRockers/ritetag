@@ -110,7 +110,7 @@ describe('Ritetag Data unit tests', function() {
 
 describe('Ritetag AI unit tests', function() {
 	it('socialMediaCoach', function(done) {
-		rt.socialMediaCoach({tweet: '646104462206050304', image: 0, networks: 'TWITTER'}, function(err, res){
+		rt.socialMediaCoach({tweet: '700823383961792512', image: 0, networks: 'TWITTER'}, function(err, res){
 			should.not.exist(err);
 			res.should.have.property('tips');
 			res.data.should.be.instanceof(Object);
@@ -119,7 +119,7 @@ describe('Ritetag AI unit tests', function() {
 	});
 
 	it('autoEnhancePost', function(done) {
-		rt.autoEnhancePost({tweet: 'test', image: 0}, function(err, res){
+		rt.autoEnhancePost({tweet: '700823383961792512', image: 0}, function(err, res){
 			should.not.exist(err);
 			res.should.have.property('hashtags');
 			res.tags.should.be.instanceof(Array);
