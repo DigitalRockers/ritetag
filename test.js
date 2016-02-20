@@ -8,7 +8,7 @@ var rt = new Ritetag();
 
 describe('Ritetag unit tests', function() {
 	it('hashtagDirectory', function(done) {
-		rt.hashtagDirectory('jobs', function(err, res){
+		rt.data.hashtagDirectory('jobs', function(err, res){
 			should.not.exist(err);
 			res.should.have.property('data');
 			res.data.should.be.instanceof(Array);
@@ -17,7 +17,7 @@ describe('Ritetag unit tests', function() {
 	});
 
 	it('trendingHashtag', function(done) {
-		rt.trendingHashtag({green: false, onlylatin: true}, function(err, res){
+		rt.data.trendingHashtag({green: false, onlylatin: true}, function(err, res){
 			should.not.exist(err);
 			res.should.have.property('tags');
 			res.tags.should.be.instanceof(Array);
@@ -26,7 +26,7 @@ describe('Ritetag unit tests', function() {
 	});
 
 	/*it('hashtagsForURL', function(done) {
-		rt.hashtagsForURL('http://twitter.com', function(err, res){
+		rt.data.hashtagsForURL('http://twitter.com', function(err, res){
 			should.not.exist(err);
 			res.should.be.instanceof(Array);
 			done();
@@ -34,7 +34,7 @@ describe('Ritetag unit tests', function() {
 	});*/
 
 	it('influencersForHashtag', function(done) {
-		rt.influencersForHashtag('socialmedia', function(err, res){
+		rt.data.influencersForHashtag('socialmedia', function(err, res){
 			should.not.exist(err);
 			res.should.have.property('influencers');
 			res.influencers.should.be.instanceof(Array);
@@ -43,7 +43,7 @@ describe('Ritetag unit tests', function() {
 	});
 
 	it('historicalData', function(done) {
-		rt.historicalData('job', function(err, res){
+		rt.data.historicalData('job', function(err, res){
 			should.not.exist(err);
 			res.should.have.property('data');
 			res.data.should.be.instanceof(Array);
@@ -52,7 +52,7 @@ describe('Ritetag unit tests', function() {
 	});
 
 	it('tweetGrader', function(done) {
-		rt.tweetGrader({tweet: 'test', photo: 'false', networks: 'TWITTER'}, function(err, res){
+		rt.data.tweetGrader({tweet: 'test', photo: 'false', networks: 'TWITTER'}, function(err, res){
 			should.not.exist(err);
 			res.should.have.property('twitter').be.instanceof(Object);
 			done();

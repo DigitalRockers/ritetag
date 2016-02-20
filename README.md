@@ -47,10 +47,10 @@ Initialize Ritetag object:
 ```javascript
 var Ritetag = require('ritetag');
 var rt = new Ritetag({
-	clientId: 'YOUR_CONSUMER_KEY' || process.ENV.RitetagClientId,
-	clientSecret: 'YOUR_CONSUMER_SECRET' || process.ENV.RitetagClientSecret,
-	oauthToken: 'YOUR_OAUTH_TOKEN' || process.ENV.RitetagOauthToken,
-	oauthSecret: 'YOUR_OAUTH_SECRET' || process.ENV.RitetagOauthSecret,
+	clientId: 'YOUR_CONSUMER_KEY' || process.env.RitetagClientId,
+	clientSecret: 'YOUR_CONSUMER_SECRET' || process.env.RitetagClientSecret,
+	oauthToken: 'YOUR_OAUTH_TOKEN' || process.env.RitetagOauthToken,
+	oauthSecret: 'YOUR_OAUTH_SECRET' || process.env.RitetagOauthSecret,
 	debug: false //optional
 });
 ```
