@@ -246,7 +246,7 @@ Ritetag.prototype.autoEnhancePost = function(query, options, callback){
 		options = {};
 	}
 
-	this._request('/api/v2.2/autoenhance/?' + qs.stringify(query), callback);
+	this._request('/api/v2.2/ai/autoenhance/?' + qs.stringify(query), callback);
 };
 
 
