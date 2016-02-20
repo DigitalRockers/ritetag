@@ -16,9 +16,9 @@ var Ritetag = function(options){
 	this.oauthToken = options.oauthToken || process.env.RitetagOauthToken;
 	this.oauthSecret = options.oauthSecret || process.env.RitetagOauthSecret;
 
+
 	this.useMokupServer = options.useMokupServer;
-=======
->>>>>>> origin/master
+
 
 	this.oauth = new OAuth.OAuth(
 		null,
